@@ -1,7 +1,7 @@
 __author__ = 'sneha'
 import naive_bayes
 
-def testSummarize():
+def test_summarize():
     data_set = [[1,20,0], [2,21,1], [3,22,0]]
     summary = naive_bayes.summarize(data_set)
     print('Attribute summaries: {0}').format(summary)
@@ -22,7 +22,7 @@ def test_calculate_class_probability():
     summaries = {0: [(1, 0.5)], 1:[(20, 5.0)]}
 
     inputVector = [1.1, '?']
-    probabilties = naive_bayes.calculateClassProbabilities(summaries, inputVector)
+    probabilties = naive_bayes.calculate_class_probabilities(summaries, inputVector)
     print probabilties
     probClass1 = naive_bayes.calculate_probability(1.1, 1, 0.5)
     probClass2 = naive_bayes.calculate_probability(1.1, 20, 5.0)
@@ -38,10 +38,10 @@ def test_predict():
     prob = 'A' if probClassA > probClassB else 'B'
     assert prob == result
 
-def testGetPredictions():
+def test_get_predictions():
     summaries = {'A':[(1, 0.5)], 'B': [(20, 5.0)]}
     testSet = [[1.1, '?'], [19.1, '?']]
-    predictions = naive_bayes.getPredictions(summaries, testSet)
+    predictions = naive_bayes.get_predictions(summaries, testSet)
     pred1 = naive_bayes.predict(summaries, testSet[0])
     pred2 = naive_bayes.predict(summaries, testSet[1])
     assert pred1 == predictions[0]

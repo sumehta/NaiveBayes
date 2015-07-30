@@ -4,14 +4,14 @@ import csv
 import random
 import math
 
-def loadCsv(filename):
+def load_csv(filename):
     lines = csv.reader(open(filename, "rb"))
     dataset = list(lines)
     for i in range(len(dataset)):
         dataset[i] = [float(x) for x in  dataset[i]]
     return dataset
 
-def splitDataset(data_set, splitRatio):
+def split_dataset(data_set, splitRatio):
     trainSize = int(len(data_set)*splitRatio)
     trainSet = []
     copy = list(data_set)
@@ -74,7 +74,7 @@ def calculate_probability(x, mean, stdev):
     exponent = math.exp(-(math.pow(x-mean,2)/(2*math.pow(stdev,2))))
     return (1 / (math.sqrt(2*math.pi) * stdev)) * exponent
 
-def calculateClassProbabilities(summaries, inputVector):
+def calculate_class_probabilities(summaries, inputVector):
     probabilities = {}
     for classValue, classSummaries in summaries.iteritems():
         probabilities[classValue] = 1
@@ -87,7 +87,7 @@ def calculateClassProbabilities(summaries, inputVector):
     return probabilities
 
 def predict(summaries, inputVector):
-    probabilites = calculateClassProbabilities(summaries, inputVector)
+    probabilites = calculate_class_probabilities(summaries, inputVector)
     bestLabel, bestProb = None, -1
     for classValue, probability in probabilites.iteritems():
         if bestLabel is None or probability > bestProb:
@@ -95,14 +95,14 @@ def predict(summaries, inputVector):
             bestLabel = classValue
     return bestLabel
 
-def getPredictions(summaries, testSet):
+def get_predictions(summaries, testSet):
     predictions = []
     for i in range(len(testSet)):
         result = predict(summaries, testSet[i])
         predictions.append(result)
     return predictions
 
-def getAccuracy(testSet, predictions):
+def get_accuracy(testSet, predictions):
     correct = 0
     for x in range(len(testSet)):
         if testSet[x][-1] == predictions[x]:
@@ -113,11 +113,11 @@ def getAccuracy(testSet, predictions):
 def main():
     filename = 'pima-indians-diabetes.data.csv'
     splitRatio = 0.67
-    dataset = loadCsv(filename)
-    trainingSet, testSet = splitDataset(dataset, splitRatio)
+    dataset = load_csv(filename)
+    trainingSet, testSet = split_dataset(dataset, splitRatio)
     summaries = summarize_by_class(trainingSet)
-    predictions = getPredictions(summaries, testSet)
-    accuracy = getAccuracy(testSet, predictions)
+    predictions = get_predictions(summaries, testSet)
+    accuracy = get_accuracy(testSet, predictions)
     print('Accuracy: {0}%'.format(accuracy))
 
 main()
