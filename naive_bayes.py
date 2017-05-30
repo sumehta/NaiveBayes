@@ -22,17 +22,6 @@ def split_dataset(data_set, splitRatio):
         trainSet.append(copy.pop(index))
     return [trainSet, copy]
 
-# Summary preparation
-
-# Separate data by class
-# Calculate Mean
-# Calculate Standard Deviation
-# Summarize Dataset
-# Summarize Attributes by Class
-
-# This function is based on the assumption that the last
-# attribute in the class value
-
 def separate_by_class(dataset):
     separated = {}
     for i in range(len(dataset)):
@@ -61,13 +50,6 @@ def summarize_by_class(dataset):
     for class_name, data_items in separated.iteritems():
         summaries[class_name] = summarize(data_items)
     return summaries
-
-# Making prediction
-
-# Calculate Gaussian probability density function
-# Calculate class probability
-# Make a prediction
-# Estimate accuracy
 
 
 def calculate_probability(x, mean, stdev):
@@ -120,8 +102,6 @@ def main():
     accuracy = get_accuracy(testSet, predictions)
     print('Accuracy: {0}%'.format(accuracy))
 
-main()
-
-# if __name__ == "__main__":
-#     data_set = [[1,20, 0], [2,21,1], [3, 22, 0]]
-#     print summarize(data_set)
+if __name__ == "__main__":
+    main()
+   
